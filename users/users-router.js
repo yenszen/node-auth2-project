@@ -1,10 +1,10 @@
 const express = require("express");
-const db = require("./users-model");
+const Users = require("./users-model");
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  db.find()
+  Users.find()
     .then(users => {
       res.status(200).json(users);
     })
