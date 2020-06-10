@@ -10,7 +10,7 @@ exports.up = function(knex) {
     .createTable("users", tbl => {
       tbl.increments("id");
       tbl
-        .string("name", 128)
+        .string("username", 128)
         .notNullable()
         .unique()
         .index();

@@ -1,9 +1,10 @@
-const express = require("express");
+const router = require("express").Router();
+
 const Users = require("./users-model");
+const restricted = require("../auth/restricted-middleware");
+const checkDept = require("../auth/check-dept-middleware");
 
-const router = express.Router();
-
-router.get("/", (req, res) => {
+router.get("/", restricted, checkDept(1), (req, res) => {
   Users.find()
     .then(users => {
       res.status(200).json(users);

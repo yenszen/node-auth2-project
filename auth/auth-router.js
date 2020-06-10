@@ -33,8 +33,9 @@ router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   if (isValid(req.body)) {
-    Users.findBy({ username: username })
-      .then(user => {
+    Users.findBy({ username })
+      .then(([user]) => {
+        // WHY USE ARRAY HERE?!
         if (user && bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);
           res.status(200).json({ message: "Welcome to our API", token });
@@ -43,6 +44,7 @@ router.post("/login", (req, res) => {
         }
       })
       .catch(err => {
+        console.log(err);
         res.status(500).json({ message: err.message });
       });
   } else {
